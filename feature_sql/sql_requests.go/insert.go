@@ -6,19 +6,15 @@ import (
 	"github.com/jackc/pgx/v5"
 )
 
-func InsertRow(ctx context.Context, conn *pgx.Conn, book BookModel) error {
+func InsertRow(ctx context.Context, conn *pgx.Conn, fullName, position string) error {
 	sqlQuery := `
-		INSERT INTO books (name, author, resolution, reales_year, completed, time_on_shelf)
-		VALUES($1, $2, $3, $4, $5, $6)
+		INSERT INTO employee (full_name, position)
+		VALUES($1, $2)
 	`
 	_, err := conn.Exec(ctx,
 		sqlQuery,
-		book.Name,
-		book.Author,
-		book.Resolution,
-		book.Reales_year,
-		book.Completed,
-		book.Time_on_shelf)
+		fullName,
+		position)
 	if err != nil {
 		return err
 	}

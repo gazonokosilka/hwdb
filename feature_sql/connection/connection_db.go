@@ -2,11 +2,12 @@ package connection
 
 import (
 	"context"
+	"os"
 
 	"github.com/jackc/pgx/v5"
 )
 
 func ConnectionDB(ctx context.Context) (*pgx.Conn, error) {
-	url := "postgres://postgres:admin@localhost:5432/hw"
-	return pgx.Connect(ctx, url)
+	conn_string := os.Getenv("CONN_STRING")
+	return pgx.Connect(ctx, conn_string)
 }

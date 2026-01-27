@@ -1,2 +1,0 @@
-ALTER TABLE products
-ADD COLUMN quality_product BOOLEAN;
