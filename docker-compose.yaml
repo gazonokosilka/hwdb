@@ -1,0 +1,29 @@
+services:
+  application:
+    build: .
+    container_name: application-container
+    ports:
+      - "5050:5050"
+    networks:
+      - app-network
+    environment:
+      CONN_STRING: "postgres://postgres:pass@postgres:5432/postgres?sslmode=disable"
+  postgres:
+    image: postgres:18-bookworm
+    container_name: postgres-hw
+    environment:
+      POSTGRES_PASSWORD: pass
+    ports:
+      - "5432:5432"  
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
